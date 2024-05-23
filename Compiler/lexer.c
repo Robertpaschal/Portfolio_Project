@@ -11,12 +11,13 @@
  * Return: An array of tokens.
  * @warning: The returned array of tokens must be freed by the caller.
 */
+
 Token* lexer(const char *input) {
     int token_count = 0;
     const char *ptr = input;
     
     // Allocate memory for the array of tokens
-    Token *tokens = malloc(sizeof(Token) * strlen(input));
+    Token *tokens = malloc(sizeof(Token) * (strlen(input) + 1)); // +1 for null terminator
     if (tokens == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
         exit(EXIT_FAILURE);
@@ -46,43 +47,35 @@ Token* lexer(const char *input) {
             tokens[token_count].value[ptr - start] = '\0';
 
             // Set the token type to NUMBER
-            tokens[token_count].type = TOKEN_NUMBER;
-
-            printf("Token: type=NUMBER, value='%s'\n", tokens[token_count].value);
-            token_count++;
+            tokens[token_count++].type = TOKEN_NUMBER;
+            printf("Token: type=%d, value='%s'\n", tokens[token_count].type, tokens[token_count].value);
             continue;
         }
 
         // Handle arithmetic operators
         if (*ptr == '+') {
-            tokens[token_count].type = TOKEN_PLUS;
-            printf("Token: type=PLUS\n");
+            tokens[token_count++].type = TOKEN_PLUS;
         }
         else if (*ptr == '-') {
-            tokens[token_count].type = TOKEN_MINUS;
-            printf("Token: type=MINUS\n");
+            tokens[token_count++].type = TOKEN_MINUS;
         }
         else if (*ptr == '*') {
-            tokens[token_count].type = TOKEN_MULTIPLY;
-            printf("Token: type=MULTIPLY\n");
+            tokens[token_count++].type = TOKEN_MULTIPLY;
         }
         else if (*ptr == '/') {
-            tokens[token_count].type = TOKEN_DIVIDE;
-            printf("Token: type=DIVIDE\n");
+            tokens[token_count++].type = TOKEN_DIVIDE;
         } else {
             // Handle unknown tokens
-            tokens[token_count].type = TOKEN_UNKNOWN;
-            printf("Token: type=UNKNOWN\n");
+            tokens[token_count++].type = TOKEN_UNKNOWN;
         }
 
+        printf("Token: type=%d, value='%c'\n", tokens[token_count - 1].type, *ptr);
         ptr++;
-        token_count++;
     }
 
     // Set the end token
     tokens[token_count].type = TOKEN_END;
     tokens[token_count].value = NULL;
 
-    printf("Token: type=END\n");
     return tokens;
 }

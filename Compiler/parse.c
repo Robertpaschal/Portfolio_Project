@@ -1,10 +1,20 @@
 #include "compiler.h"
+
 ASTNode* parse_expression(Token *tokens, int *index);
+
+// strdup implementation
+char *strdup(const char *s) {
+    size_t len = strlen(s) + 1;
+    char *dup = malloc(len);
+    if (dup != NULL) {
+        memcpy(dup, s, len);
+    }
+    return dup;
+}
 
 ASTNode* parser(Token *tokens) {
     int index = 0;
     Token token = tokens[index++]; // Get the first token
-
     // Ensure that the token stream is not empty
     if (token.type == TOKEN_END) {
         fprintf(stderr, "Empty token stream\n");
@@ -90,7 +100,11 @@ ASTNode* parse_operand(Token *tokens, int *index) {
         }
 
         operand_node->type = NODE_NUMBER;
-        operand_node->value = tokens[*index].value;
+        operand_node->value = strdup(tokens[*index].value);
+        if (operand_node->value == NULL) {
+            fprintf(stderr, "Memory allocation failed\n");
+            exit(EXIT_FAILURE);
+        }
 
         // Move to the next token
         (*index)++;
