@@ -3,6 +3,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from .database import engine, Base
 from .routers import auth, writing
+import logging
 
 Base.metadata.create_all(bind=engine)
 

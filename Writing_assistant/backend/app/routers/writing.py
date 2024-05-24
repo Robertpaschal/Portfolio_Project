@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from .. import models, schemas, database
 from ..utils.security import get_current_user
 from ..utils.gemini import get_auto_completion
-
+import logging
 router = APIRouter(
     prefix="/writing",
     tags=["writing"],
@@ -30,4 +30,5 @@ def autocomplete(prompt_request: schemas.PromptRequest):
         completion = get_auto_completion(prompt_request.prompt)
         return {"completion": completion}
     except Exception as e:
+        logging.error(f"Error in autocomplete endpoint: {e}")
         raise HTTPException(status_code=500, detail=str(e))
