@@ -3,8 +3,8 @@ import AutocompleteInput from './components/SuggestionsList';
 
 const App = () => {
     return (
-        <div className='App'>
-            <h1>Intelligent Writing Assistant</h1>
+        <div className='flex items-center justify-center flex-col'>
+            <h1 className='text-center text-xl'>Intelligent Writing Assistant</h1>
             <AutocompleteInput />
         </div>
     );

@@ -35,6 +35,7 @@ const AutocompleteInput = () => {
             placeholder='Enter your prompt...'
             value={prompt}
             onChange={handleInputChange}
+            className='border border-gray-300 p-2 w-96 rounded-lg'
             />
             <ul>
                 {suggestions.map((suggestion, index) => (
