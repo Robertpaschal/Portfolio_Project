@@ -5,10 +5,10 @@ import Footer from './components/Footer';
 
 const App = () => {
     return (
-        <div className='flex justify-between flex-col text-right'>
-            <h1 className='text-center text-xl'>Intelligent Writing Assistant</h1>
-            <AutocompleteInput />
+        <div className='flex justify-between flex-col text-right bg-[#D9D9D9]'>
             <Navbar />
+            {/* <h1 className='text-center text-xl'>Intelligent Writing Assistant</h1>
+            <AutocompleteInput /> */}
             <Footer />
         </div>
     );
