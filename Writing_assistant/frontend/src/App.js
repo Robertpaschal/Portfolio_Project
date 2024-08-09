@@ -1,6 +1,7 @@
 import React from 'react';
 import AutocompleteInput from './components/SuggestionsList';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 const App = () => {
     return (
@@ -8,6 +9,7 @@ const App = () => {
             <h1 className='text-center text-xl'>Intelligent Writing Assistant</h1>
             <AutocompleteInput />
             <Navbar />
+            <Footer />
         </div>
     );
 };
