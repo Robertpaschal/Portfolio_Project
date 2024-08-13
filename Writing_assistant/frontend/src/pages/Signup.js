@@ -4,7 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { FaDiscord } from "react-icons/fa6";
 import PropTypes from 'prop-types';
-import style from '../styles/fonts.css';
+// import style from '../styles/fonts.css';
 
 
 
@@ -14,8 +14,9 @@ const SignUp = ({ closing }) => {
       <div className='flex  flex-col justify-center items-center py-36 px-20 border w-full'>
         <button className=' absolute  top-20 right-40 m-4 p-2 ' onClick={closing}>
           <IoCloseCircleOutline  className='size-10 opacity-40'/></button>
-        <h1 className='text-[36px] font-black-900 font-[{style.interFont}]'>Register for  FREE</h1>
-        <p className=''>and start using Intelligent Writing Assistant at a glance!</p>
+        <h1 className='text-[36px] font-black-900 '>Register for  FREE</h1>
+        <p className=''>and start using Intelligent Writing Assistant </p>
+        <p>at a glance!</p>
         <div>
           <form className='w-full'>
             <div className='gap-6 text-stone-700'>
@@ -66,7 +67,7 @@ const SignUp = ({ closing }) => {
 }
 
 SignUp.propTypes = {
-  closing: PropTypes.func.isRequired,
+  closing: PropTypes.func,
 }
 
 export default SignUp
