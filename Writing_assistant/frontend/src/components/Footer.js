@@ -7,7 +7,7 @@ import youtube from '../assets/images/logo-youtube.png'
 
 const Footer = () => {
   return (
-    <div className='absolute bottom-0 w-full items-center justify-center text-white/80'>
+    <div className=' bottom-0 w-full items-center justify-center text-white/80'>
       <footer className=' h-70  bg-[#817777]'>
         <div className='flex justify-between items-center '>
           <div className='flex flex-col'>
