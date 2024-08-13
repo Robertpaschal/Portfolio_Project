@@ -1,9 +1,10 @@
 import React from 'react'
 import logo from '../assets/images/logo-white.png'
-import discord from '../assets/images/logo-discord.png'
-import linkedin from '../assets/images/logo-linkedin.png'
-import twitter from '../assets/images/xcom.png'
-import youtube from '../assets/images/logo-youtube.png'
+import { FaDiscord } from "react-icons/fa6";
+import { CiLinkedin } from "react-icons/ci";
+import { CiYoutube } from "react-icons/ci";
+import { FaXTwitter } from "react-icons/fa6";
+
 
 const Footer = () => {
   return (
@@ -15,10 +16,11 @@ const Footer = () => {
               <img src={logo} alt="logo" className="w-20 h-20 " />
             </div>
             <div className='flex my-2 mx-6 gap-2 '> 
-              <img src={discord} alt="discord" className="w-8 h-8" />
-              <img src={linkedin} alt="linkedin" className="w-8 h-8" />
-              <img src={twitter} alt="twitter" className="w-8 h-8" />
-              <img src={youtube} alt="youtube" className="w-8 h-8" />
+              <FaDiscord className="w-8 h-8"/>
+              <CiLinkedin  className='w-8 h-8'/>
+              <CiYoutube  className='w-8 h-8'/>
+              <FaXTwitter  className='w-8 h-8'/>
+              
             </div>
           </div>
           <div className='flex flex-col  items-center justify-center'>
