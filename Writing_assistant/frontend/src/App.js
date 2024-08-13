@@ -6,7 +6,7 @@ import Body from './components/body';
 
 const App = () => {
     return (
-        <div className='flex justify-between flex-col text-right bg-[#D9D9D9]'>
+        <div className='flex justify-between flex-col text-right bg-[#D9D9D9] '>
             <Navbar />
             <Body />
             {/* <h1 className='text-center text-xl'>Intelligent Writing Assistant</h1>
