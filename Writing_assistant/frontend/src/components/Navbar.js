@@ -5,14 +5,26 @@ import SignIn from '../pages/SignIn';
 
 const Navbar = () => {
   
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isSignInOpen, setIsSignInOpen] = React.useState(false);
+  const [isSignUpOpen, setIsSignUpOpen] = React.useState(false);
 
-  const handleSignUpClick = () => {
-    setIsOpen(true);
-  };
+ const handleSingInClick = () => {
+  setIsSignInOpen(!isSignInOpen);
+  if (isSignUpOpen) {
+    setIsSignUpOpen(false);
+  }
+ };
+ 
+ const handleSignUpClick = () => {
+  setIsSignUpOpen(!isSignUpOpen);
+  if (isSignInOpen) {
+    setIsSignInOpen(false);
+  }
+ };
 
-  const handleCloseClick = () => {
-    setIsOpen(false);
+ const handleCloseClick = () => {
+  setIsSignInOpen(false);
+  setIsSignUpOpen(false);
   };
 
   
@@ -24,11 +36,14 @@ const Navbar = () => {
           <li className=' hover:text-sky-800'> Home </li>
           <li className=" hover:text-sky-800">Dashboard </li>
           <li className=" hover:text-sky-800">Editor</li>
-          <li className="hover:text-sky-800" >Login </li>
-          {isOpen && <SignIn closing={handleCloseClick} />}
+          <li className="hover:text-sky-800" onClick={handleSingInClick}>Login </li>
+          {isSignInOpen && <SignIn closing={handleCloseClick} />}
+          {isSignInOpen ? (
+            <SignIn closing={handleCloseClick} />
+          ): ""}
           <li className="hover:text-sky-800" onClick={handleSignUpClick}>Signup </li>
-          {isOpen && <SignUp closing={handleCloseClick} />}
-          {isOpen? (
+          {isSignUpOpen && <SignUp closing={handleCloseClick} />}
+          {isSignUpOpen? (
             <SignUp closing={handleCloseClick} /> 
           ): ""} 
         </ul>
