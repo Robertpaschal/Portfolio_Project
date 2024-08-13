@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from .. import models, schemas, database
 from ..utils.security import get_current_user
-from ..utils.gemini import get_auto_completion
+from ..utils.gemini import generate_content
 import logging
 router = APIRouter(
     prefix="/writing",
@@ -24,11 +24,11 @@ def read_document(document_id: int, db:Session = Depends(database.get_db), user:
         raise HTTPException(status_code=404, details="Document not found")
     return db_document
 
-@router.post("/autocomplete")
+@router.post("/generate")
 def autocomplete(prompt_request: schemas.PromptRequest):
     try:
-        completion = get_auto_completion(prompt_request.prompt)
+        completion = generate_content(prompt_request.prompt)
         return {"completion": completion}
     except Exception as e:
-        logging.error(f"Error in autocomplete endpoint: {e}")
+        logging.error(f"Error generating content: {e}")
         raise HTTPException(status_code=500, detail=str(e))
