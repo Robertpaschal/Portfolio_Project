@@ -5,7 +5,7 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { FaDiscord } from "react-icons/fa6";
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import SignUp from './Signup';
+// import SignUp from './Signup';
 
 
 
