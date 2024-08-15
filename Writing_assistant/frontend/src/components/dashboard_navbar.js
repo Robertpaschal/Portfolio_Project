@@ -8,14 +8,14 @@ const Dashboard_navbar = () => {
   const composeOptions = ['New Document', 'New Folder', 'New Project'];
   const shareOptions = ['Share Document', 'Share Folder', 'Share Project'];
   return (
-    <nav className='flex w-full  top-0 bg-[#FFFFFF] h-10 border rounded-sm items-center justify-start space-x-72'>
+    <nav className='flex w-full bg-[#FFFFFF] h-14 border rounded-sm items-center justify-between'>
       <div className=''>
         <FaBars className='text-xl text-start text-slate-500 m-2 ' />
       </div>
 
-      <form className='flex relative'>
-        <input type='text' placeholder='Search' className='border-2 border-slate-500 rounded-md px-2' />
-        <FaSearch className='absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-500' />
+      <form className='hidden lg:flex items-center border-2 border-slate-500 rounded-md px-2'>
+        <input type='text' placeholder='Search' className='' />
+        <FaSearch className='  text-slate-500' />
       </form>
 
       <div className='flex items-center space-x-4'>
