@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { HiDotsHorizontal } from "react-icons/hi";
+import TextEditor from './TextEditor';
+import HistoryCard from './HistoryCard';
+import Updates from './Updates';
 
 const Dashboard_mini_navbar2 = () => {
 
@@ -8,35 +11,46 @@ const Dashboard_mini_navbar2 = () => {
   const tabs = ['All', 'Answered', 'Unanswered', 'Announcements'];
 
   return (
-    <div className='  bg-[#c26666] w-full px-4'>
-      <HiDotsHorizontal className='text-2xl mx-4 text-right-0' />
-      <div className='bg-[#B9B9B9]  rounded-xl w-full  mt-4 '>
-        <div className=''>
-          <div className='flex items-center justify-start h-12 px-2 space-x-4'>
-            {tabs.map((tab) => (
-              <p
-                key={tab}
-                className={`font-bold text-lg cursor-pointer py-2 ${activeTab === tab
-                  ? ' border-b-2 border-[#4B4B4B]'
-                  : 'text-[#4B4B4B] hover:border-b hover:border-[#4B4B4B]'
-                  }`}
-                onClick={() => setActiveTab(tab)}
-              >
-                {tab}
-              </p>
-            ))}
-           
-            <div
-              className=''
-              style={{ width: `calc(100% / ${tabs.length})`, transform: `translateX(${tabs.indexOf(activeTab) * (100 / tabs.length)}%)` }}
-            />
+    <div className='bg-[#E3E0E0] w-full'>
+      <div className='  bg-[#c26666] w-full px-4 py-2'>
+        <div className='flex justify-end p-2'>
+          <HiDotsHorizontal className='text-2xl  text-black z-10' />
+
+        </div>
+        <div className='bg-[#B9B9B9]  rounded-xl '>
+          <div className=''>
+            <div className='flex items-center justify-start h-12 px-2 space-x-4'>
+              {tabs.map((tab) => (
+                <p
+                  key={tab}
+                  className={`font-bold text-[10px] md:text-md lg:text-lg cursor-pointer py-2 ${activeTab === tab
+                    ? ' border-b-2 border-[#4B4B4B]'
+                    : 'text-[#4B4B4B] hover:border-b hover:border-[#4B4B4B]'
+                    }`}
+                  onClick={() => setActiveTab(tab)}
+                >
+                  {tab}
+                </p>
+              ))}
+
+              <div
+                className=''
+                style={{ width: `calc(100% / ${tabs.length})`, transform: `translateX(${tabs.indexOf(activeTab) * (100 / tabs.length)}%)` }}
+              />
+            </div>
           </div>
+
         </div>
 
       </div>
+      <div className='flex justify-around gap-2 h-full'>
+        <Updates />
+        <HistoryCard />
+        <TextEditor />
+      </div>
 
     </div>
-    
+
 
   )
 }
