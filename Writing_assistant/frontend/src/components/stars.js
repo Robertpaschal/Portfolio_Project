@@ -5,10 +5,9 @@ import starImage from '../assets/images/star-removebg-preview.png'
 
 const Stars = () => {
   return (
-    <div className='flex justify-center items-center h-1/2 w-1/2'>
-      <div className="bg-center bg-cover h-full w-full "
-      style={{backgroundImage: 'url(${starImage})', filter: 'sepia(100%) hue-rotate(30deg) saturate(1000%)'}}>
-        <p>Hello</p>
+    <div className="relative w-full h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(https://via.placeholder.com/1200x800?text=Background+Image)' }}>
+      <div className="flex items-center justify-center h-full">
+        <h1 className="text-white text-4xl font-bold bg-black/30 p-6">Centered Content</h1>
       </div>
     </div>
   )
