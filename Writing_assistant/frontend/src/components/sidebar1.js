@@ -9,7 +9,7 @@ import { HiDotsHorizontal } from "react-icons/hi";
 
 const Sidebar1 = () => {
   return (
-    <div className='flex flex-col items-center h-screen  w-40 bg-[#B9B9B9]'>
+    <div className='flex flex-col items-center h-screen   bg-[#B9B9B9]'>
       <div className='justify-center mx-6 space-y-10 mt-2'> 
         <div className='flex items-center justify-center gap-2'>
           <FaHome className='siz-8' />
