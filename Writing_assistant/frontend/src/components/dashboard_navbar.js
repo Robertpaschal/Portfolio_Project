@@ -8,8 +8,8 @@ const Dashboard_navbar = () => {
   const composeOptions = ['New Document', 'New Folder', 'New Project'];
   const shareOptions = ['Share Document', 'Share Folder', 'Share Project'];
   return (
-    <nav className='flex w-full  top-0 bg-[#FFFFFF] h-10 border rounded-sm items-center justify-evenly'>
-      <div className='flex-shrink-0'>
+    <nav className='flex w-full  top-0 bg-[#FFFFFF] h-10 border rounded-sm items-center justify-start space-x-72'>
+      <div className=''>
         <FaBars className='text-xl text-start text-slate-500 m-2 ' />
       </div>
 
