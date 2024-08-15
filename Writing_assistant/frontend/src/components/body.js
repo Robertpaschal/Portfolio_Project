@@ -1,31 +1,21 @@
 import React from 'react';
 import { FaStar } from 'react-icons/fa';
+import { TbWriting } from "react-icons/tb";
+import { SiRoamresearch } from "react-icons/si";
+import { FaEnvelope } from "react-icons/fa";
+import CustomCorousel from './custom_corousel';
+import Stars from './stars';
 
 const Body = () => {
-   // SVG Data URL for FaStar
-   const starImageUrl = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8...'; // SVG Data URL for FaStar
+  // SVG Data URL for FaStar
+  // const  = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8...'; // SVG Data URL for FaStar
   return (
     <div className='flex flex-col my-6 mx-4 h-full'>
-      {/* <div className='relative flex items-center justify-center m-24 h-full w-full'>
-       
-        <FaStar className='text-pink-300 text-6xl' />
-        <div className=''>
-          <p>Hello</p>
-        </div>
-      </div> */}
-      <div className='relative flex items-center justify-center m-24 h-40 w-24'>
-        <div 
-          className='absolute inset-0 bg-center bg-cover'
-          style={{ backgroundImage: `url(${starImageUrl})` }}
-        >
-          <div className='relative z-10 flex items-center justify-center h-full w-full'>
-            <p>Hello</p>
-          </div>
-        </div>
-      </div>
-
       <div>
-        <form className='flex items-center justify-center my-12'>
+        <Stars />
+      </div>
+      <div>
+        <form className='flex items-center justify-center my-12 mx-40'>
           <input
             type='text'
             placeholder='Enter your text here'
@@ -71,16 +61,54 @@ const Body = () => {
         </div>
       </div>
 
-      <div className='flex items-center justify-evenly w-fit h-20 mx-6 text-black/70 gap-4'>
-        <div className='bg-[#CCBBBB] my-12 rounded-md'>
-          <h1 className='items-center justify-center font-bold'>Communication</h1>
-          <p>Streamline your communication with intelligent, precise, and effective writing.</p>
+      <div className='flex items-center justify-evenly w-fit h-20 m-8 text-black/70 gap-4 '>
+        <div className='relative bg-[#CCBBBB] my-12 rounded-md h-36 p-4 flex flex-col items-center justify-center'>
+          <FaEnvelope className='size-8 absolute top-2 right-4  ' />
+
+          <h1 className='text-lg items-center justify-center font-bold'>Communication</h1>
+          <p className='text-start content-fit pt-2'>Streamline your communication with intelligent, precise, and effective writing.</p>
         </div>
-        <div className='bg-[#CCBBBB] my-12 items-center justify-center'>
-          <h1>Writing</h1>
-          <p>Effortlessly craft compelling content with our assistant for clear, resonant messages.</p>
+        <div className='relative bg-[#CCBBBB] my-12 rounded-md h-36 p-4 flex flex-col items-center justify-center'>
+          <TbWriting className='size-8 absolute top-2 right-4  ' />
+          <h1 className='text-lg items-center justify-center font-bold'>Writing</h1>
+          <p className='text-start content-fit pt-2'>Effortlessly craft compelling content with our assistant for clear, resonant messages.</p>
+        </div>
+        <div className='relative bg-[#CCBBBB] my-12 rounded-md h-36 p-4 flex flex-col items-center justify-center'>
+          <SiRoamresearch className='size-8 absolute top-2 right-4  ' />
+          <h1 className='text-lg items-center justify-center font-bold'>Research</h1>
+          <p className='text-start content-fit pt-2'>Unlock insights and enhance content with our precise writing assistant.</p>
         </div>
       </div>
+      <div className='flex flex-col items-center justify-center my-6 font-extrabold text-4xl'>
+        <h2>Powerful tools to transform your work</h2>
+      </div>
+      <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 mx-24 justify-center items-center'>
+        <div className='bg-[#CCBBBB]  rounded-md h-32 flex flex-col items-center justify-center'>
+          <h3 className='text-3xl content-start p-2'>Explain Like I’m 5</h3>
+          <p className='text-xl p-4 text-start'>Take complex topic and simplify it.</p>
+        </div>
+        <div className='bg-[#CCBBBB] my-4 rounded-md h-32 flex flex-col items-center justify-center'>
+          <h3 className='text-3xl content-start p-2'>Magic Editor</h3>
+          <p className='text-xl p-4 text-start '>Edit a document or message to improve it’s tone and clarity. </p>
+        </div>
+        <div className='bg-[#CCBBBB] my-4 rounded-md h-32 flex flex-col items-center justify-center'>
+          <h3 className='text-3xl content-start p-2'>AI Writer</h3>
+          <p className='text-xl text-start p-4'>Use AI to write content on any topic</p>
+        </div>
+        <div className='bg-[#CCBBBB] my-4 rounded-md h-32 flex flex-col items-center justify-center'>
+          <h3 className='text-3xl content-start p-2'>Scholar AI</h3>
+          <p className='text-xl p-4 text-start '>Find articles to fulfill your research  or writing task.</p>
+        </div>
+
+      </div>
+
+      <div className='flex flex-col items-center justify-center my-6 font-mono text-4xl'>
+        <h2>Media and Our Story</h2>
+      </div>
+      <div>
+      <CustomCorousel />
+      </div>
+
     </div>
   );
 }
