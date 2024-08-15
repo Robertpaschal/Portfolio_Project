@@ -1,11 +1,20 @@
 import React from 'react'
 import Dashboard_navbar from '../components/dashboard_navbar';
+import Sidebar1 from '../components/sidebar1';
+import Dashboard_mini_navbar2 from '../components/dashboard_mini_navbar2';
 
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className='bg-[#D9D9D9]'>
       <Dashboard_navbar />
+      <div className='flex '>
+        <div className='hidden lg:block'>
+          <Sidebar1 />
+        </div>
+        <Dashboard_mini_navbar2 />
+
+      </div>
     </div>
   )
 }
