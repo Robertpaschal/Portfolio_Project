@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
@@ -26,6 +27,7 @@ app.include_router(writing.router)
 #Define a simple root endpoint
 @app.get("/")
 def read_root():
+    """defines the base route for the app"""
     return {
         "message": "Welcome to the Intelligent Writing Assistant API"
     }
@@ -33,4 +35,4 @@ def read_root():
 
 if __name__=="__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
