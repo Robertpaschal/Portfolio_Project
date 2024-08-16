@@ -1,13 +1,13 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, Boolean, DateTime
+from sqlalchemy import Column, Integer
+from sqlalchemy import String, Text, ForeignKey, Boolean, DateTime
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from datetime import datetime
-from database import Base
+
+from app.database import Base
 import sys
 import os
 
-# Add the app directory to the Python path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../app')))
 
 class User(Base):
     """Contains the users data"""
@@ -20,6 +20,7 @@ class User(Base):
     is_active = Column(Boolean, default=True)
 
     documents = relationship("Document", back_populates="owner")
+
 
 class Document(Base):
     """Contains documents"""

@@ -6,21 +6,25 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
+# Add the project root directory to the sys.path
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '..')))
+
 from app import main
 from app.database import Base, get_db
 from app.models import User, Document
 from app.utils.security import get_password_hash
 
-# Add the project root directory to the sys.path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 logging.basicConfig(level=logging.DEBUG)
 # Setup for testing with PostgreSQL
 SQLALCHEMY_DATABASE_URL = "postgresql://root:password@localhost/writing_assistant_db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+TestingSessionLocal = sessionmaker(
+    autocommit=False, autoflush=False, bind=engine)
 
 # Create all tables in the test database
 Base.metadata.create_all(bind=engine)
+
 
 # Dependency override
 def override_get_db():
@@ -31,9 +35,11 @@ def override_get_db():
     finally:
         db.close()
 
+
 app = main.app
 app.dependency_overrides[get_db] = override_get_db
 client = TestClient(app)
+
 
 @pytest.fixture(scope="function")
 def test_db():
@@ -44,11 +50,15 @@ def test_db():
     # Drop tables after each test
     Base.metadata.drop_all(bind=engine)
 
+
 @pytest.fixture
 def token(test_db):
     """Generate a valid token"""
     db = TestingSessionLocal()
-    db.execute(text('TRUNCATE TABLE users RESTART IDENTITY CASCADE')) # Clear existing data
+
+    # Clear existing data
+    db.execute(text(
+        'TRUNCATE TABLE users RESTART IDENTITY CASCADE'))
     user = User(
         email="testuser@example.com",
         full_name="Test User",
@@ -58,16 +68,20 @@ def token(test_db):
     db.commit()
     db.refresh(user)
 
-    response = client.post("/auth/login", data={"username": "Test User", "password": "password123"})
+    response = client.post("/auth/login", data={
+        "username": "Test User", "password": "password123"})
     token = response.json().get("access_token")
     db.close()
     return token
+
 
 def test_root():
     """Tests the base endpoint"""
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"message": "Welcome to the Intelligent Writing Assistant API"}
+    assert response.json() == {
+        "message": "Welcome to the Intelligent Writing Assistant API"}
+
 
 def test_signup():
     """Tests the signup endpoint"""
@@ -79,12 +93,15 @@ def test_signup():
     assert response.status_code == 201
     assert response.json()["email"] == "signupuser@example.com"
 
+
 def test_login(test_db):
     """Tests login endpoint"""
-    # Ensure the signup test has run before this
-    response = client.post("/auth/login", data={"username": "Signup User", "password": "signup123"})
+    response = client.post(
+        "/auth/login", data={
+            "username": "Signup User", "password": "signup123"})
     assert response.status_code == 200
     assert "access_token" in response.json()
+
 
 def test_create_document(token):
     """Tests document creation endpoint"""
@@ -94,6 +111,7 @@ def test_create_document(token):
     }, headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200
     assert response.json()["title"] == "Test Document"
+
 
 def test_content_generation(token):
     """Tests content generation endpoint"""
@@ -111,12 +129,14 @@ def test_content_generation(token):
     # Ensure there is at least one document associated with the user
     assert len(documents) > 0
 
-    # Check if the most recent document matches the generated content and custom title
+    # Check if the most recent document matches
+    # the generated content and custom title
     latest_document = documents[-1]
     assert latest_document.title == "Custom Title for Generated Content"
 
     # Clean up
     db.close()
+
 
 def test_read_document(token):
     """Tests the read document endpoint"""
@@ -128,12 +148,16 @@ def test_read_document(token):
     document_id = create_response.json()["id"]
 
     # Then read the document
-    response = client.get(f"/writing/documents/{document_id}", headers={"Authorization": f"Bearer {token}"})
+    response = client.get(
+        f"/writing/documents/{document_id}", headers={
+            "Authorization": f"Bearer {token}"})
     assert response.status_code == 200
     assert response.json()["title"] == "Read Test Document"
 
+
 def test_list_documents(token):
     """Tests list documents endpoint"""
-    response = client.get("/writing/documents/", headers={"Authorization": f"Bearer {token}"})
+    response = client.get(
+        "/writing/documents/", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200
     assert isinstance(response.json(), list)
