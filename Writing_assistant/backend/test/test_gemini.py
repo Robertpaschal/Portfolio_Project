@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
+import sys
+import os
 import unittest
 from unittest.mock import patch, MagicMock
-from gemini import generate_content
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from app.utils.gemini import generate_content
 
 
 class TestGeminiGenerateContent(unittest.TestCase):
     """Class testing Gemini API"""
-    @patch('gemini.genai.GenerativeModel')
+    @patch('app.utils.gemini.genai.GenerativeModel')
     def test_generate_content_success(self, mock_model):
         """Test the generate_content function for a successful API call."""
 
@@ -27,7 +31,7 @@ class TestGeminiGenerateContent(unittest.TestCase):
         self.assertEqual(response, "This is a generated text")
         mock_instance.generate_content.assert_called_once_with(prompt)
 
-    @patch('gemini.genai.GenerativeModel')
+    @patch('app.utils.gemini.genai.GenerativeModel')
     def test_generate_content_error(self, mock_model):
         """Test the generate_content function when an exception is raised"""
 
