@@ -1,16 +1,11 @@
 #!/usr/bin/env python3
 import unittest
 from unittest.mock import patch, MagicMock
-import sys
-import os
-
-# Add the app directory to the Python path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../app/utils')))
-
 from gemini import generate_content
 
 
 class TestGeminiGenerateContent(unittest.TestCase):
+    """Class testing Gemini API"""
     @patch('gemini.genai.GenerativeModel')
     def test_generate_content_success(self, mock_model):
         """Test the generate_content function for a successful API call."""
