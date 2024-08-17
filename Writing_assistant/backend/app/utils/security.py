@@ -9,37 +9,47 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models import User
 from ..schemas import TokenData
+from ..utils.redis_util import get_redis_client
 
 
 # Secret key to encode the JWT token
 # secret_key = secrets.token_hex(32)
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+# Initialize Redis client
+redis_client = get_redis_client()
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 
-def create_access_token(data: dict, expires_delta: timedelta = None):
+def create_access_token(data: dict):
     """Creates a token using a randomly generated
     secret key, encodes it as a JSON Web Token"""
     to_encode = data.copy()
-    if expires_delta:
-        expires_delta = datetime.now() + expires_delta
-    else:
-        expires_delta = datetime.now() + timedelta(
-            minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+    # store the token in Redis 
+    redis_client.set(encoded_jwt, "active")
+
     return encoded_jwt
 
 
 def verify_token(token: str, credentials_exception):
-    """decodes the JWT and confirms that it belongs to the specified user"""
+    """decodes the JWT and confirms that it belongs to the specified user
+    Confirm that the token is still in redis"""
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
+        
+        # Check if the token is still active in Redis
+        token_status = redis_client.get(token)
+        if token_status != "active":
+            raise credentials_exception
+        
         token_data = TokenData(username=username)
     except jwt.PyJWTError:
         raise credentials_exception

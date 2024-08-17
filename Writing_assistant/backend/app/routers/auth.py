@@ -57,3 +57,18 @@ def create_user(
     db.refresh(db_user)
 
     return db_user
+
+
+@router.post("/logout")
+async def logout(token: str = Depends(security.oauth2_scheme)):
+    """
+    Logout the current user by revoking the authentication token.
+    """
+    try:
+        security.redis_client.delete(token)
+        return {"message": "Successfully logged out"}
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Logout failed: {str(e)}"
+        )

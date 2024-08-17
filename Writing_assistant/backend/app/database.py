@@ -19,7 +19,7 @@ Base = declarative_base()
 
 def get_db():
     """Instantiates a local session and
-    retireves the database from postgresql"""
+    retrieves the database from postgresql"""
     db = SessionLocal()
     try:
         yield db

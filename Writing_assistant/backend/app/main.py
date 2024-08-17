@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
-
+from .utils.redis_util import get_redis_client
 from .database import engine, Base
 from .routers import auth, writing
 import logging
+
+# Initialize Redis
+redis_client = get_redis_client()
 
 Base.metadata.create_all(bind=engine)
 

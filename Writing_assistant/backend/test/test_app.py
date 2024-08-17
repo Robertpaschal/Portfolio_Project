@@ -6,6 +6,8 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
+from redis import Redis
+
 # Add the project root directory to the sys.path
 sys.path.insert(0, os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..')))
@@ -24,6 +26,9 @@ TestingSessionLocal = sessionmaker(
 
 # Create all tables in the test database
 Base.metadata.create_all(bind=engine)
+
+# Initialize Redis client for tests
+redis_client = Redis(host='localhost', port=6379, db=0, decode_responses=True)
 
 
 # Dependency override
@@ -161,3 +166,14 @@ def test_list_documents(token):
         "/writing/documents/", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200
     assert isinstance(response.json(), list)
+
+def test_logout(token):
+    """Tests the logout endpoint"""
+    # Call the logout endpoint
+    response = client.post("/auth/logout", headers={"Authorization": f"Bearer {token}"})
+
+    assert response.status_code == 200
+    assert response.json()["message"] == "Successfully logged out"
+
+    # Verify that the token has been removed from Redis
+    assert redis_client.get(token) is None
