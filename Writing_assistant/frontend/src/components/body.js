@@ -65,19 +65,19 @@ const Body = () => {
         </div>
       </div>
 
-      <div className='flex  lg:flex-row items-center justify-evenly w-fit h-20 m-8 text-black/70 gap-4 '>
-        <div className='relative bg-[#CCBBBB] my-12 rounded-md h-36 p-4 flex flex-col items-center justify-center'>
+      <div className='flex flex-col md:flex-row items-center justify-evenly w-fit h-20 m-8 text-black/70 gap-4 '>
+        <div className='bg-[#CCBBBB] my-12 rounded-md h-36 p-4 flex flex-col items-center justify-center'>
           <FaEnvelope className='size-8 absolute top-2 right-4  ' />
 
           <h1 className='text-lg items-center justify-center font-bold'>Communication</h1>
           <p className='text-start content-fit pt-2'>Streamline your communication with intelligent, precise, and effective writing.</p>
         </div>
-        <div className='relative bg-[#CCBBBB] my-12 rounded-md h-36 p-4 flex flex-col items-center justify-center'>
+        <div className='bg-[#CCBBBB] my-12 rounded-md h-36 p-4 flex flex-col items-center justify-center'>
           <TbWriting className='size-8 absolute top-2 right-4  ' />
           <h1 className='text-lg items-center justify-center font-bold'>Writing</h1>
           <p className='text-start content-fit pt-2'>Effortlessly craft compelling content with our assistant for clear, resonant messages.</p>
         </div>
-        <div className='relative bg-[#CCBBBB] my-12 rounded-md h-36 p-4 flex flex-col items-center justify-center'>
+        <div className='bg-[#CCBBBB] my-12 rounded-md h-36 p-4 flex flex-col items-center justify-center'>
           <SiRoamresearch className='size-8 absolute top-2 right-4  ' />
           <h1 className='text-lg items-center justify-center font-bold'>Research</h1>
           <p className='text-start content-fit pt-2'>Unlock insights and enhance content with our precise writing assistant.</p>

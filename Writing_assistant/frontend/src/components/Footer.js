@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <div className='w-full items-center justify-center text-white/80'>
       <footer className='h-70 bg-[#817777]'>
-        <div className='flex justify-between lg:flex-row items-center '>
+        <div className='flex justify-between flex-col md:flex-row items-center '>
           <div className='flex flex-col'>
             <div>
               <img src={logo} alt="logo" className="w-20 h-20 " />
