@@ -62,7 +62,7 @@ const Body = () => {
         </div>
       </div>
 
-      <div className='flex flex-col lg:flex-row items-center justify-evenly w-fit h-20 m-8 text-black/70 gap-4 '>
+      <div className='flex  lg:flex-row items-center justify-evenly w-fit h-20 m-8 text-black/70 gap-4 '>
         <div className='relative bg-[#CCBBBB] my-12 rounded-md h-36 p-4 flex flex-col items-center justify-center'>
           <FaEnvelope className='size-8 absolute top-2 right-4  ' />
 
@@ -109,33 +109,27 @@ const Body = () => {
       <div>
         <CustomCorousel />
       </div>
-      <div className=''>
-        <h1>Frequently asked questions</h1>
-        <div>
-          <div>
-            <p>How does Essay AI assist with writing essays?</p>
-            <RiArrowDropDownLine />
+      <div className='text-xl mb-20'>
+        <h1 className='flex justify-center items-center text-2xl font-semibold my-4 content-stretch'>Frequently asked questions</h1>
+        <div  className='space-y-6  ml-20'>
+          <div className='flex  items-center bg-white px-2 justify-items-start rounded-md w-4/6'>
+            <p className=''>How does Essay AI assist with writing essays?</p>
+            <RiArrowDropDownLine  className='text-4xl '/>
           </div>
-          <div>
-            <p>How does Essay AI assist with writing essays?</p>
-            <RiArrowDropDownLine />
+          <div className='flex  items-center bg-white  px-2  justify-items-start rounded-md w-4/6'>
+            <p>Are there any usage limits with AI Writer?</p>
+            <RiArrowDropDownLine  className='text-4xl '/>
           </div>
-          <div>
-            <p>How does Essay AI assist with writing essays?</p>
-            <RiArrowDropDownLine />
+          <div className='flex  items-center bg-white  px-2 justify-items-start rounded-md w-4/6' >
+            <p>How accurate is the information provided by Scholar AI?</p>
+            <RiArrowDropDownLine  className='text-4xl '/>
           </div>
-          <div>
-            <p>How does Essay AI assist with writing essays?</p>
-            <RiArrowDropDownLine />
+          <div className='flex  items-center bg-white  px-2  justify-items-start rounded-md w-4/6'>
+            <p>Is there a limit to the number of searches or queries?</p>
+            <RiArrowDropDownLine  className='text-4xl '/>
           </div>
-          <div>
-            <p>How does Essay AI assist with writing essays?</p>
-            <RiArrowDropDownLine />
-          </div>
-          <div>
-            <p>How does Essay AI assist with writing essays?</p>
-            <RiArrowDropDownLine />
-          </div>
+          
+          
         </div>
       </div>
 
