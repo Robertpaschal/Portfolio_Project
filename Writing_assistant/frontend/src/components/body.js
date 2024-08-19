@@ -5,7 +5,10 @@ import { SiRoamresearch } from "react-icons/si";
 import { FaEnvelope } from "react-icons/fa";
 import CustomCorousel from './custom_corousel';
 import Stars from './stars';
-import { RiArrowDropDownLine } from "react-icons/ri";
+import DropdownList from './DropdownList';
+
+
+
 
 const Body = () => {
   // SVG Data URL for FaStar
@@ -111,26 +114,7 @@ const Body = () => {
       </div>
       <div className='text-xl mb-20'>
         <h1 className='flex justify-center items-center text-2xl font-semibold my-4 content-stretch'>Frequently asked questions</h1>
-        <div  className='space-y-6  ml-20'>
-          <div className='flex  items-center bg-white px-2 justify-items-start rounded-md w-4/6'>
-            <p className=''>How does Essay AI assist with writing essays?</p>
-            <RiArrowDropDownLine  className='text-4xl '/>
-          </div>
-          <div className='flex  items-center bg-white  px-2  justify-items-start rounded-md w-4/6'>
-            <p>Are there any usage limits with AI Writer?</p>
-            <RiArrowDropDownLine  className='text-4xl '/>
-          </div>
-          <div className='flex  items-center bg-white  px-2 justify-items-start rounded-md w-4/6' >
-            <p>How accurate is the information provided by Scholar AI?</p>
-            <RiArrowDropDownLine  className='text-4xl '/>
-          </div>
-          <div className='flex  items-center bg-white  px-2  justify-items-start rounded-md w-4/6'>
-            <p>Is there a limit to the number of searches or queries?</p>
-            <RiArrowDropDownLine  className='text-4xl '/>
-          </div>
-          
-          
-        </div>
+        <DropdownList />
       </div>
 
     </div>
