@@ -6,9 +6,9 @@ import Dashboard_mini_navbar2 from '../components/dashboard_mini_navbar2';
 
 const Dashboard = () => {
   return (
-    <div className='bg-[#D9D9D9]'>
+    <div className='h-full'>
       <Dashboard_navbar />
-      <div className='flex '>
+      <div className='flex'>
         <div className='hidden lg:block'>
           <Sidebar1 />
         </div>

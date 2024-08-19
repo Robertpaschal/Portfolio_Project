@@ -1,21 +1,49 @@
 import React from 'react'
 import { BsPersonCircle } from "react-icons/bs";
 
+const card = [
+  {
+    name: 'Names',
+    text: 'Text',
+    date: 'Date',
+    questionNo: 'Question No:'
+  },
+
+  {
+    name: 'Names',
+    text: 'Text',
+    date: 'Date',
+    questionNo: 'Question No:'
+  },
+
+  {
+    name: 'Names',
+    text: 'Text',
+    date: 'Date',
+    questionNo: 'Question No:'
+  },
+]
+
 const HistoryCard = () => {
   return (
-    <div className='flex flex-col bg-slate-400  w-2/6'>
-      <div className='flex flex-col p-2 h-fit'>
-        <div className='flex my-2 gap-2'>
-          <BsPersonCircle />
-          <p>Names</p>
-          <div className='flex flex-col items-start justify-normal p-4 overflow-hidden '>
-            <p className=''>Text</p>
+    <div className='hidden md:flex flex-col rounded-md'>
+      <div className='flex flex-col gap-y-2'>
+        {card.slice(0, 3).map((card) => (
+          <div className='flex flex-col gap-2 px-4 bg-[#CCBBBB] rounded-lg'>
+            <div className='flex items-center gap-4'>
+              <BsPersonCircle />
+              <p>{card.name}</p>
+            </div>
+
+            <div className='flex flex-col items-start justify-normal p-4 overflow-hidden '>
+              <p className=''>{card.text}</p>
+            </div>
+            <div className='flex gap-4 '>
+              <p>{card.date}</p>
+              <p>{card.questionNo}</p>
+            </div>
           </div>
-          <div className='flex gap-4 '>
-            <p>Date</p>
-            <p>Question No:</p>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   )

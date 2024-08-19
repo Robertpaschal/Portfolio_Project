@@ -5,6 +5,7 @@ import { SiRoamresearch } from "react-icons/si";
 import { FaEnvelope } from "react-icons/fa";
 import CustomCorousel from './custom_corousel';
 import Stars from './stars';
+import { RiArrowDropDownLine } from "react-icons/ri";
 
 const Body = () => {
   // SVG Data URL for FaStar
@@ -61,7 +62,7 @@ const Body = () => {
         </div>
       </div>
 
-      <div className='flex items-center justify-evenly w-fit h-20 m-8 text-black/70 gap-4 '>
+      <div className='flex flex-col lg:flex-row items-center justify-evenly w-fit h-20 m-8 text-black/70 gap-4 '>
         <div className='relative bg-[#CCBBBB] my-12 rounded-md h-36 p-4 flex flex-col items-center justify-center'>
           <FaEnvelope className='size-8 absolute top-2 right-4  ' />
 
@@ -106,7 +107,36 @@ const Body = () => {
         <h2>Media and Our Story</h2>
       </div>
       <div>
-      <CustomCorousel />
+        <CustomCorousel />
+      </div>
+      <div className=''>
+        <h1>Frequently asked questions</h1>
+        <div>
+          <div>
+            <p>How does Essay AI assist with writing essays?</p>
+            <RiArrowDropDownLine />
+          </div>
+          <div>
+            <p>How does Essay AI assist with writing essays?</p>
+            <RiArrowDropDownLine />
+          </div>
+          <div>
+            <p>How does Essay AI assist with writing essays?</p>
+            <RiArrowDropDownLine />
+          </div>
+          <div>
+            <p>How does Essay AI assist with writing essays?</p>
+            <RiArrowDropDownLine />
+          </div>
+          <div>
+            <p>How does Essay AI assist with writing essays?</p>
+            <RiArrowDropDownLine />
+          </div>
+          <div>
+            <p>How does Essay AI assist with writing essays?</p>
+            <RiArrowDropDownLine />
+          </div>
+        </div>
       </div>
 
     </div>

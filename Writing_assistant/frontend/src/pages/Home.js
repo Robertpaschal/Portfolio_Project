@@ -5,7 +5,7 @@ import Footer from '../components/Footer'
 
 const Home = () => {
   return (
-    <div className='flex justify-between flex-col text-right bg-[#D9D9D9] '>
+    <div className='flex justify-between flex-col bg-[#D9D9D9] w-full'>
       <Navbar />
       <Body />
       <Footer />
