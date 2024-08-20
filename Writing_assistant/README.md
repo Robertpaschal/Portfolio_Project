@@ -1,26 +1,33 @@
-Intelligent Writing Assistant
-Overview
+# Intelligent Writing Assistant
+
+## Overview
 The Intelligent Writing Assistant is a web application designed to help users with various writing tasks, including essays, stories, poems, and business reports. The app provides features such as auto-completion, grammar and style checking, plagiarism detection, and content summarization. The backend is built using Python and FastAPI, and the frontend uses JavaScript with a framework like React.js.
 
-Table of Contents
-Overview
-Features
-Project Structure
-Installation
-Backend
-Frontend
-Usage
-Running the Backend
-Running the Frontend
-API Documentation
-Contributors
-License
-Features
-Auto-completion and Suggestions: Provides real-time suggestions to improve writing.
-Grammar and Style Checking: Enhances grammar, style, and readability of the content.
-Plagiarism Detection: Ensures the originality of the content.
-Content Summarization: Summarizes long documents into concise summaries.
-Project Structure
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+- [Usage](#usage)
+  - [Running the Backend](#running-the-backend)
+  - [Running the Frontend](#running-the-frontend)
+- [API Documentation](#api-documentation)
+- [Contributors](#contributors)
+- [License](#license)
+
+## Features
+
+- **Auto-completion and Suggestions**: Provides real-time suggestions to improve writing.
+- **Grammar and Style Checking**: Enhances grammar, style, and readability of the content.
+- **Plagiarism Detection**: Ensures the originality of the content.
+- **Content Summarization**: Summarizes long documents into concise summaries.
+
+## Project Structure
+
+```plaintext
 intelligent-writing-assistant/
 ├── backend/
 │   ├── alembic/
@@ -78,102 +85,132 @@ intelligent-writing-assistant/
 │   ├── docker-compose.yml
 ├── .gitignore
 └── README.md
-Installation
-Backend
-Clone the repository
+```
+
+## Installation
+## Backend
+- **Clone the repository**<br/>
+```sh
 git clone https://github.com/Robertpaschal/intelligent-writing-assistant.git
 
 cd intelligent-writing-assistant/backend
-Create a virtual environment
+```
+- **Create a virtual environment**<br/>
+```sh
 python3 -m venv venv
 source venv/bin/activate
-Install the dependencies
+```
+- **Install the dependencies**<br/>
+```sh
 pip install -r requirements.txt
-Set up the environment variables
-Update the environment variables .env file with your won configurations such as database credentials, API keys for third-party services, etc
-Start the backend server
+```
+- **Set up the environment variables**<br/>
++ Update the environment variables `.env` file with your won configurations such as database credentials, API keys for third-party services, etc
+- **Start the backend server**<br/>
+```sh
 uvicorn app.main:app --reload or 
 python3 -m app.main
-The backend server will start on http://localhost:8000
+```
+The backend server will start on `http://localhost:8000`
 
-Frontend
-Navigate to the fronend directory
+## Frontend
+- **Navigate to the fronend directory**<br/>
+```sh
 cd ../frontend
-Install the dependencies
+```
+- **Install the dependencies**<br/>
+```sh
 npm install
-Set up the environment varaibles
-Copy the .env file and update the necessary configurations, such as the backend API URL
-Start the frontend development server
+```
+- **Set up the environment varaibles**<br/>
++ Copy the `.env` file and update the necessary configurations, such as the backend API URL
+- **Start the frontend development server**<br/>
+```sh
 npm start
-The fronend server will start on http://localhost:3000
+```
+The fronend server will start on `http://localhost:3000`
 
-Usage
-Running the Backend
-To run the backend server, follow the installation steps for the backend, and ensure the server is running at http://localhost:8000. You can interact with the backend API through the frontend or using tools like curl or Postman.
+## Usage
+## Running the Backend
+To run the backend server, follow the installation steps for the backend, and ensure the server is running at `http://localhost:8000.` You can interact with the backend API through the frontend or using tools like curl or Postman.
 
-Running the Frontend
-To run the frontend server, follow the installation steps for the frontend. The frontend will connect to the backend API at http://localhost:8000 by default. You can access the frontend interface by navigating to http://localhost:3000 in your web browser.
+## Running the Frontend
+To run the frontend server, follow the installation steps for the frontend. The frontend will connect to the backend API at `http://localhost:8000` by default. You can access the frontend interface by navigating to `http://localhost:3000` in your web browser.
 
-API Documentation
+## API Documentation
+
 The API documentation is available through the FastAPI auto-generated docs. Once the backend server is running, you can access the documentation at:
 
-Swagger UI: http://localhost:8000/docs
-ReDoc: http://localhost:8000/redoc
+- Swagger UI: `http://localhost:8000/docs`
+- ReDoc: `http://localhost:8000/redoc`<br/>
+
 These endpoints provide detailed information about the API routes, request/response formats, and models.
 
-Authentication Endpoints
- POST /auth/signup
-Description: Registers a new user in the system.
-Request Body:
+- **Authentication Endpoints**
+
++ [x] `POST /auth/signup`
+- **Description**: Registers a new user in the system.
+- **Request Body**:
+```json
 {
   "username": "string",
   "email": "string",
   "password": "string"
 }
-Response:
+```
+- **Response:**
+```json
 {
   "id": "integer",
   "username": "string",
   "email": "string"
 }
-Error Responses:
-400 Bad Request: If the request is missing required fields or contains invalid data.
-409 Conflict: If a user with the same email already exists.
- POST /auth/login
-Description: Authenticates a user and returns a JWT token.
-Request Body:
+```
+- **Error Responses**:
+  - **400 Bad Request**: If the request is missing required fields or contains invalid data.
+  - **409 Conflict**: If a user with the same email already exists.
+
++ [x] `POST /auth/login`
+- **Description**: Authenticates a user and returns a JWT token.
+- **Request Body**:
+```json
 {
   "email": "string",
   "password": "string"
 }
-Response:
+```
+- **Response**:
+```json
 {
   "token": "string"
 }
-Error Responses:
-401 Unauthorized: If the credentials are invalid.
- POST /auth/logout
-Description: Logs out the user by invalidating the JWT token.
+```
+- **Error Responses**:
+  - **401 Unauthorized**: If the credentials are invalid.
 
-Headers:
++ [x] `POST /auth/logout`
+- **Description**: Logs out the user by invalidating the JWT token.
+- **Headers**:
+  - `Authorization: Bearer <JWT Token>`
+- **Response**:
+  - **204 No Content**: Indicates the user was successfully logged out.
+- **Error Responses**:
+  - **401 Unauthorized**: If the JWT token is invalid or missing.
 
-Authorization: Bearer <JWT Token>
-Response:
 
-204 No Content: Indicates the user was successfully logged out.
-Error Responses:
+- **Writing Assistant Endpoints**
 
-401 Unauthorized: If the JWT token is invalid or missing.
-Writing Assistant Endpoints
-
- POST /writing/documents
-Description: Uploads a new document for analysis, storage, and processing.
-Request Body:
++ [x] `POST /writing/documents`
+- **Description**: Uploads a new document for analysis, storage, and processing.
+- **Request Body:**
+```json
 {
   "title": "string",
   "content": "string"
 }
-Response:
+```
+- **Response:**
+```json
 {
   "document_id": "string",
   "title": "string",
@@ -181,13 +218,16 @@ Response:
   "created_at": "string",
   "updated_at": "string"
 }
-Error Responses:
-400 Bad Request: If the title or content is missing or empty.
- GET /writing/documents
-Description: Retrieves a list of all documents associated with the authenticated user.
-Headers:
-Authorization: Bearer <JWT Token>
-Response:
+```
+- **Error Responses:**
+  - **400 Bad Request:** If the title or content is missing or empty.
+
++ [x] `GET /writing/documents`
+- **Description:** Retrieves a list of all documents associated with the authenticated user.
+- **Headers:**
+  - `Authorization: Bearer <JWT Token>`
+- **Response:**
+```json
 {
   "documents": [
     {
@@ -197,15 +237,18 @@ Response:
     }
   ]
 }
-Error Responses:
-401 Unauthorized: If the JWT token is invalid or missing.
- GET /writing/documents/{document_id}
-Description: Retrieves the details of a specific document by its ID.
-Headers:
-Authorization: Bearer <JWT Token>
-Path Parameters:
-document_id: The ID of the document to retrieve.
-Response:
+```
+- **Error Responses:**
+  - **401 Unauthorized:** If the JWT token is invalid or missing.
+
++ [x] `GET /writing/documents/{document_id}`
+- **Description:** Retrieves the details of a specific document by its ID.
+- **Headers:**
+  - `Authorization: Bearer <JWT Token>`
+- **Path Parameters:**
+  - `document_id`: The ID of the document to retrieve.
+- **Response:**
+```json
 {
   "document_id": "string",
   "title": "string",
@@ -213,57 +256,70 @@ Response:
   "created_at": "string",
   "updated_at": "string"
 }
-Error Responses:
-401 Unauthorized: If the JWT token is invalid or missing.
-404 Not Found: If the document with the specified ID does not exist.
- POST /writing/generate
-Description: Generates content based on a prompt or topic provided by the user.
-Request Body:
+```
+- **Error Responses:**
+  - **401 Unauthorized:** If the JWT token is invalid or missing.
+  - **404 Not Found:** If the document with the specified ID does not exist.
+
++ [x] `POST /writing/generate`
+- **Description:** Generates content based on a prompt or topic provided by the user.
+- **Request Body:**
+```json
 {
   "prompt": "string",
   "title": "string"
 }
-Response:
+```
+- **Response:**
+```json
 {
   "text": "string"
 }
-Error Responses:
-400 Bad Request: If the prompt or title is missing or empty.
-Error Responses For all endpoints, you may encounter the following error responses:
+```
+- **Error Responses:**
+  - **400 Bad Request:** If the prompt or title is missing or empty.
 
-400 Bad Request: Returned when the request parameters are invalid or missing.
-Response:
+**Error Responses**
+For all endpoints, you may encounter the following error responses:
+
+- **400 Bad Request:** Returned when the request parameters are invalid or missing.
+  - **Response:**
+```json
 {
   "detail": "string"
 }
-401 Unauthorized: Returned when the user is not authenticated or the token is invalid.
-Response:
+```
+- **401 Unauthorized:** Returned when the user is not authenticated or the token is invalid.
+  - **Response:**
+```json
 {
   "detail": "string"
 }
-404 Not Found: Returned when the requested resource does not exist.
-Response:
+```
+- **404 Not Found:** Returned when the requested resource does not exist.
+  - **Response:**
+```json
 {
   "detail": "string"
 }
-Contributors
-This Web Application was built by a team of four developers:
+```
+## Contributors
+This Web Application was built by a team of four developers:<br/>
+- **Nnamani Robert Odinaka**
+  - *email*: nnamani.odinakarobert@gmail.com
+  - *role*:  Lead project developer and Backend dev
 
-Nnamani Robert Odinaka
+- **Doreen Ikilai**
+  - *email*: dornkaizen@gmail.com
+  - *role*: Lead Frontend dev
 
-email: nnamani.odinakarobert@gmail.com
-role: Lead project developer and Backend dev
-Doreen Ikilai
+- **Garret Akpale**
+  - *email*: garretakpale@gmail.com 
+  - *role*: Backend dev
 
-email: dornkaizen@gmail.com
-role: Lead Frontend dev
-Garret Akpale
+- **Okoli Chisom Daniel**
+  - *email*: chisomd90@gmail.com
+  - *role*: Backend dev 
 
-email: garretakpale@gmail.com
-role: Backend dev
-Okoli Chisom Daniel
-
-email: chisomd90@gmail.com
-role: Backend dev
-License
+## License
 This project is licensed under the MIT License. See the LICENSE file for more information.
