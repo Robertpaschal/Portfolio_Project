@@ -37,6 +37,16 @@ export const signupUser = async (email, full_name, password) => {
     }
 };
 
+export const callClerkWebhook = async (userData) => {
+    try {
+        const response = await apiClient.post('/webhook/clerk', userData);
+        return response.data;
+    } catch (error) {
+        console.error('Error calling Clerk webhook:', error);
+        throw error;
+    }
+};
+
 export const logoutUser = async () => {
     try {
         await apiClient.post('/auth/logout');

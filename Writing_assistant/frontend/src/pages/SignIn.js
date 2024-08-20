@@ -3,6 +3,7 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { SignIn } from '@clerk/clerk-react';
+import { loginUser } from '../services/api';
 
 
 
