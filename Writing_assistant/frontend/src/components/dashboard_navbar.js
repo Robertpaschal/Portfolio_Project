@@ -1,7 +1,6 @@
 import React from 'react'
 import { FaBars } from "react-icons/fa6";
 import { FaSearch } from 'react-icons/fa';
-// import { RiArrowDropDownLine } from "react-icons/ri";
 import DropdownMenu from './dropdownmenu';
 import Sidebar1 from './sidebar1';
 
@@ -23,11 +22,13 @@ const Dashboard_navbar = () => {
           </div>
         )}
       </div>
+      <div className='border-2 border-slate-500 rounded-md'>
+        <form className='hidden lg:flex items-center px-2'>
+          <input type='text' placeholder='Search' className='outline-none' />
+          <FaSearch className='  text-slate-500' />
+        </form>
 
-      <form className='hidden lg:flex items-center border-2 border-slate-500 rounded-md px-2'>
-        <input type='text' placeholder='Search' className='' />
-        <FaSearch className='  text-slate-500' />
-      </form>
+      </div>
 
       <div className='flex items-center space-x-4'>
         <DropdownMenu title='COMPOSE' options={composeOptions} />

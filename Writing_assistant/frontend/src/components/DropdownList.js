@@ -3,7 +3,7 @@ import DropDownItem from './DropDownItem'
 
 const DropdownList = () => {
   return (
-    <div className='space-y-6 '>
+    <div className='space-y-6'>
       <DropDownItem
         question='How does Essay AI assist with writing essays?'
         notes='Essay AI provides suggestions, helps with structuring, and offers a range of tools to improve writing quality.'

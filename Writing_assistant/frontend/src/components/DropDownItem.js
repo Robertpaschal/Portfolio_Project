@@ -9,24 +9,17 @@ const DropDownItem = ({ question, notes }) => {
     setIsOpen(!isOpen)
   };
   return (
-    <div className='space-y-6 mx-28'>
-      <div className='flex flex-col items-center bg-white px-2 justify-items-start rounded-md w-full cursor-pointer'
+      <div className='flex flex-col items-center  bg-white px-2 rounded-md w-1/2 mx-auto cursor-pointer'
         onClick={toggleDropdown} >
         <div className='flex items-center justify-between'>
           <p>{question}</p>
-          <RiArrowDropDownLine className={`text-4xl transform ${isOpen ? 'rotate-180' : ''}`} />
+          <RiArrowDropDownLine size={60} className={`text-4xl transform ${isOpen ? 'rotate-180' : ''}`} />
         </div>
         <div className={`overflow-hidden transition-max-height duration-500 ${isOpen ? 'max-h-40' : 'max-h-0'}`}>
           <p className='px-4 py-2'>{notes}</p>
         </div>
       </div>
-      {/* {isOpen && (
-        <div className='bg-white px-2 justify-items-start rounded-md w-4/6'>
-          <p>{notes}</p>
-        </div>
-      )} */}
 
-    </div>
   );
 };
 

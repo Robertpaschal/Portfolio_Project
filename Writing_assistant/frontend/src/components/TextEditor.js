@@ -1,17 +1,27 @@
 import React, { useState } from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import { useDispatch } from 'react-redux';
+import addSession from '../redux/Actions/textEditorCreator';
 
 const TextEditor = () => {
   const [editorContent, setEditorContent] = useState('');
   const [response, setResponse] = useState('');
+  const dispatch = useDispatch();
 
   const handleEditorChange = (content) => {
     setEditorContent(content);
   };
 
   const handleSubmit = () => {
-    setResponse(editorContent);
+    // setResponse(editorContent);
+    const session = {
+      user: {user:'user', image:'path/to/image.jpg'},
+      text: editorContent,
+      Date: new Date().toLocaleDateString(),
+      Qn_No: 'session' + Math.floor(Math.random() * 1000),
+    };
+    dispatch(addSession(session));
   };
 
   return (

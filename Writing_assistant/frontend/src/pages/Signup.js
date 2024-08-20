@@ -4,13 +4,13 @@ import { FcGoogle } from "react-icons/fc";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { FaDiscord } from "react-icons/fa6";
 import PropTypes from 'prop-types';
-// import style from '../styles/fonts.css';
+import { SignUp } from '@clerk/clerk-react';
 
 
 
-const SignUp = ({ closing }) => {
+const SignUpPage = ({ closing }) => {
   return (
-    <div className='fixed top-0 left-0 w-full bg-white bg-opacity-90 flex justify-center items-center overflow-hidden m-0' >
+    <div className=' top-0 left-0 w-full bg-white bg-opacity-90 flex justify-center items-center overflow-hidden m-0' >
       <div className='flex  flex-col justify-center items-center py-36 px-20 border w-full'>
         <button className=' absolute  top-20 right-40 m-4 p-2 ' onClick={closing}>
           <IoCloseCircleOutline  className='size-10 opacity-40'/></button>
@@ -18,8 +18,8 @@ const SignUp = ({ closing }) => {
         <p className=''>and start using Intelligent Writing Assistant </p>
         <p>at a glance!</p>
         <div>
-          <form className='w-full'>
-            <div className='gap-6 text-stone-700'>
+          <div className='w-full'>
+            {/* <div className='gap-6 text-stone-700'>
               <div className='flex  justify-center items-center'>
                 <input type='Username' placeholder='Enter your username' id='username' className='border border-zinc-300 m-2 h-10 w-full rounded-md p-2 text-sm' />
               </div>
@@ -55,8 +55,9 @@ const SignUp = ({ closing }) => {
                   Discord
                 </button>
               </div>
-            </div>
-          </form>
+            </div> */}
+            <SignUp path="/SignUp" routing="path" signInUrl="/SignIn" />
+          </div>
         </div>
 
       </div>
@@ -70,4 +71,4 @@ SignUp.propTypes = {
   closing: PropTypes.func,
 }
 
-export default SignUp
+export default SignUpPage
