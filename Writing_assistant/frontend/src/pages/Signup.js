@@ -36,9 +36,9 @@ const SignUpPage = ({ closing }) => {
         type: 'user.created',
         data: {
           email_addresses: [{ email: user.primaryEmailAddress }],
-          username: user.username,
-          first_name: user.firstName,
-          last_name: user.lastName,
+          username: user.username || '',
+          first_name: user.firstName || '',
+          last_name: user.lastName || '',
         },
       });
       navigate('/');
