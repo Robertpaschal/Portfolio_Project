@@ -3,6 +3,9 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { useDispatch } from 'react-redux';
 import addSession from '../redux/Actions/textEditorCreator';
+import fetchCardDataFromAPI from '../services/textEditorapi';
+import DOMPurify from 'dompurify';
+
 
 const TextEditor = () => {
   const [editorContent, setEditorContent] = useState('');
@@ -13,15 +16,24 @@ const TextEditor = () => {
     setEditorContent(content);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // setResponse(editorContent);
-    const session = {
-      user: {user:'user', image:'path/to/image.jpg'},
-      text: editorContent,
-      Date: new Date().toLocaleDateString(),
-      Qn_No: 'session' + Math.floor(Math.random() * 1000),
-    };
-    dispatch(addSession(session));
+    try {
+      const session = {
+        user: { user: 'user', image: 'path/to/image.jpg' },
+        text: editorContent,
+        Date: new Date().toLocaleDateString(),
+        Qn_No: 'session' + Math.floor(Math.random() * 1000),
+      };
+      dispatch(addSession(session));
+
+      const apiResponse = await fetchCardDataFromAPI(session);
+      const sanitizeResponse = DOMPurify.sanitize(apiResponse);
+      setResponse(sanitizeResponse);
+    } catch (error) {
+      console.error('Failed to submit session', error);
+      setResponse("An error occured while processing your request.");
+    }
   };
 
   return (
@@ -46,7 +58,7 @@ const TextEditor = () => {
         </div>
         <div className='h-40  p-2 rounded-md overflow-auto'>
           <h3 className='text-lg font-semibold'></h3>
-          <div dangerouslySetInnerHTML={{ __html: response }}  />
+          <div dangerouslySetInnerHTML={{ __html: response }} />
         </div>
       </div>
     </div>
