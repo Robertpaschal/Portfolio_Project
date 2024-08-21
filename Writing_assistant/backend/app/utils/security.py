@@ -1,5 +1,6 @@
 import jwt
 import bcrypt
+import requests
 import secrets
 import os
 from datetime import datetime, timedelta
@@ -11,6 +12,9 @@ from ..models import User
 from ..schemas import TokenData
 from ..utils.redis_util import get_redis_client
 
+# clerk's JWT issuer
+CLERK_ISSUER = "https://clerk-domain.com"
+CLERK_AUDIENCE = "clerk-client-id"
 
 # Secret key to encode the JWT token
 # secret_key = secrets.token_hex(32)
@@ -35,23 +39,67 @@ def create_access_token(data: dict):
 
     return encoded_jwt
 
+def verify_clerk_token(token: str):
+    """verifies a Clerk token and sotes it in Redis"""
+    response = requests.get(f'{CLERK_ISSUER}/.well-known/jwks.json')
+    jwks = response.json()
+
+    try:
+        header = jwt.get_unverified_header(token)
+        rsa_key = {}
+        for key in jwks["keys"]:
+            if key["kid"] == header["kid"]:
+                rsa_key = {
+                    "kty": key["kty"],
+                    "kid": key["kid"],
+                    "use": key["use"],
+                    "n": key["n"],
+                    "e": key["e"]
+                }
+        if rsa_key:
+            payload = jwt.decode(
+                token,
+                rsa_key,
+                algorithms=["RS256"],
+                audience=CLERK_AUDIENCE,
+                issuer=CLERK_ISSUER
+            )
+
+            # Store the verified token in Redis
+            redis_client.set(token, "active")
+
+            return payload
+    except jwt.pyJWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not vaalidate Clerk token",
+            headers={"www-Authenticate": "Bearer"},
+        )
+    return None
 
 def verify_token(token: str, credentials_exception):
     """decodes the JWT and confirms that it belongs to the specified user
     Confirm that the token is still in redis"""
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
+        # Try to verify it as a Clerk token
+        clerk_payload = verify_clerk_token(token)
+        if clerk_payload:
+            username: str = clerk_payload.get("sub")
+        else:
+            # Otherwise, assume it's a token from generated JWT
+            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+            username: str = payload.get("sub")
+
         if username is None:
             raise credentials_exception
         
         # Check if the token is still active in Redis
         token_status = redis_client.get(token)
-        if token_status != "active":
+        if token_status != b"active":
             raise credentials_exception
         
         token_data = TokenData(username=username)
-    except jwt.PyJWTError:
+    except (jwt.PyJWTError, HTTPException):
         raise credentials_exception
     return token_data
 
