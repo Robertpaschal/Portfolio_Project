@@ -62,13 +62,25 @@ def create_user(
 
 
 @router.post("/logout")
-async def logout(token: str = Depends(security.oauth2_scheme)):
+async def logout(token: str = Depends(security.get_verified_token)):
     """
     Logout the current user by revoking the authentication token.
     """
     try:
-        security.redis_client.delete(token)
-        return {"message": "Successfully logged out"}
+        token_value, token_type = token
+
+        # Handle token deletion based on the type
+        security.redis_client.delete(token_value)
+
+        if token_type in ["clerk", "backend"]:
+            return {"message": "Successfully logged out"}
+        
+         # If token_type is not recognized, raise an error
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Unknown token type"
+        )
+
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

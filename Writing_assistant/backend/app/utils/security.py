@@ -40,7 +40,7 @@ def create_access_token(data: dict):
     return encoded_jwt
 
 def verify_clerk_token(token: str):
-    """verifies a Clerk token and sotes it in Redis"""
+    """verifies a Clerk token and stores it in Redis"""
     response = requests.get(f'{CLERK_ISSUER}/.well-known/jwks.json')
     jwks = response.json()
 
@@ -130,3 +130,34 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verifies that a plain password matches the hashed password"""
     return bcrypt.checkpw(
         plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
+
+
+def get_verified_token(token: str = Depends(oauth2_scheme)):
+    """
+    Verify if the token is a Clerk token or a standard backend token.
+    """
+    try:
+        # Try to verify as a Clerk token
+        clerk_payload = verify_clerk_token(token)
+        if clerk_payload:
+            return token, "clerk"
+        
+        # If not Clerk, verify as a backend token
+        verify_token(token, HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        ))
+        return token, "backend"
+
+    except HTTPException:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Token verification failed: {str(e)}"
+        )
