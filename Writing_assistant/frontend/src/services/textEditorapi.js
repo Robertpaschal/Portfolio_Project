@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export const fetchCardDataFromAPI = async (session) => {
+const fetchCardDataFromAPI = async (session) => {
   try {
-    const response = await axios.post('/writing/autocomplete',session, {
+    const response = await axios.post('',session, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -15,4 +15,4 @@ export const fetchCardDataFromAPI = async (session) => {
   }
 };
 
-// export default fetchCardDataFromAPI;
+export default fetchCardDataFromAPI;
