@@ -95,15 +95,23 @@ async def clerk_webhook(
     request: Request, db: Session = Depends(
         database.get_db)):
     """Webhook to handle user creation from Clerk"""
+
+    # Verify Clerk's signature
+    clerk_signature = request.headers.get("Clerk-Signature")
+    request_body = await request.body()
+
+    if not security.verify_clerk_signature(clerk_signature, request_body):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid Clerk signature")
+
     data = await request.json()
 
     if data.get("type") == "user.created":
         user_data = data.get("data")
         email = user_data.get("email_addresses")[0]["email"]
         username = user_data.get("username")
-        first_name = user_data.get("first_name")
-        last_name = user_data.get("last_name")
-        full_name = username or f"{first_name} {last_name}".strip()
+        full_name = username
         password = user_data.get("password", None)
 
         # Check if the user already exists

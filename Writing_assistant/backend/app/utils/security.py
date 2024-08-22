@@ -1,4 +1,7 @@
 import jwt
+import hmac
+import hashlib
+import base64
 import bcrypt
 import requests
 import secrets
@@ -13,8 +16,8 @@ from ..schemas import TokenData
 from ..utils.redis_util import get_redis_client
 
 # clerk's JWT issuer
-CLERK_ISSUER = "https://clerk-domain.com"
-CLERK_AUDIENCE = "clerk-client-id"
+CLERK_ISSUER = os.getenv("CLERK_ISSUER")
+CLERK_AUDIENCE = os.getenv("CLERK_AUDIENCE")
 
 # Secret key to encode the JWT token
 # secret_key = secrets.token_hex(32)
@@ -42,6 +45,7 @@ def create_access_token(data: dict):
 def verify_clerk_token(token: str):
     """verifies a Clerk token and stores it in Redis"""
     response = requests.get(f'{CLERK_ISSUER}/.well-known/jwks.json')
+    response.raise_for_status() # Raises an error for bad responses
     jwks = response.json()
 
     try:
@@ -69,13 +73,34 @@ def verify_clerk_token(token: str):
             redis_client.set(token, "active")
 
             return payload
-    except jwt.pyJWTError:
+
+    except jwt.ExpiredSignatureError:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Could not vaalidate Clerk token",
-            headers={"www-Authenticate": "Bearer"},
+            detail="Token has expired",
+            headers={"WWW-Authenticate": "Bearer"},
         )
+    except jwt.InvalidTokenError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Token validation failed: {str(e)}"
+        )
+
     return None
+
+
+def verify_clerk_signature(clerk_signature: str, request_body: bytes) -> bool:
+    """Verify the Clerk webhook signature"""
+    secret = os.getenv("CLERK_WEBHOOK_SECRET")
+    expected_signature = base64.b64encode(hmac.new(secret.encode(), request_body, hashlib.sha256).digest())
+    
+    return hmac.compare_digest(clerk_signature.encode(), expected_signature)
 
 def verify_token(token: str, credentials_exception):
     """decodes the JWT and confirms that it belongs to the specified user
