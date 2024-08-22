@@ -13,8 +13,6 @@ apiClient.interceptors.request.use((config) => {
         config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
-}, (error) => {
-    return Promise.reject(error);
 });
 
 export const loginUser = async (formData) => {
@@ -27,7 +25,7 @@ export const loginUser = async (formData) => {
         const { access_token } = response.data;
         return access_token;
     } catch (error) {
-        console.error('Error logging in:', error);
+        console.error('Error logging in:', error.response?.data || error.message);
         throw error;
     }
 };
