@@ -13,39 +13,43 @@ apiClient.interceptors.request.use((config) => {
         config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
+}, (error) => {
+    return Promise.reject(error);
 });
 
-export const loginUser = async (username, password) => {
+export const loginUser = async (formData) => {
     try {
-        const response = await apiClient.post('/auth/login', { username, password });
-        const token = response.data.token;
-        localStorage.setItem('token', token);
-        return response.data;
+        const response = await apiClient.post('/auth/login', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        const { access_token } = response.data;
+        return access_token;
     } catch (error) {
         console.error('Error logging in:', error);
         throw error;
     }
 };
 
+
 export const signupUser = async (email, full_name, password) => {
     try {
-        const response = await apiClient.post('/auth/signup', { email, full_name, password});
+        const response = await apiClient.post('/auth/signup', {
+            email,
+            full_name,
+            password }, {
+            headers: {
+                'Content-Type': 'application/json' 
+            }
+            });
         return response.data;
     } catch (error) {
-        console.error('Error signing Up:', error);
+        console.error('Error signing Up:', error.response?.data || error.message);
         throw error;
     }
 };
 
-export const callClerkWebhook = async (userData) => {
-    try {
-        const response = await apiClient.post('/webhook/clerk', userData);
-        return response.data;
-    } catch (error) {
-        console.error('Error calling Clerk webhook:', error);
-        throw error;
-    }
-};
 
 export const logoutUser = async () => {
     try {
