@@ -1,10 +1,14 @@
 import React, { useState, useEffect} from 'react'
 import '../styles/corousel.css';
+import landingpage from '../assets/images/landingpage_icon.png';
+import image1 from '../assets/images/image1.png';
+import image4 from '../assets/images/image4.png';
+
 
 const images = [
-  'https://via.placeholder.com/800x400?text=Image+1',
-  'https://via.placeholder.com/800x400?text=Image+2',
-  'https://via.placeholder.com/800x400?text=Image+3'
+  landingpage,
+  image1,
+  image4,
 ];
 
 const CustomCorousel = () => {
