@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { SignIn, useAuth } from '@clerk/clerk-react';
 import { loginUser } from '../services/api';
 
+
 const SignInPage = ({ closing }) => {
   const [fullName, setFullName] = useState('');
   const [password, setPassword] = useState('');
@@ -60,6 +61,7 @@ const SignInPage = ({ closing }) => {
                 // Customize colors, fonts, etc. here
               },
             }}
+            onSignIn={handleSignIn} 
           />
 
           {/* Divider or Option to Choose Another Method */}

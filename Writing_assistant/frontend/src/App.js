@@ -7,13 +7,13 @@ import { useUser } from '@clerk/clerk-react';
 import SignUpPage from './pages/Signup';
 import SignInPage from './pages/SignIn';
 
-const ProtectedRoute = ({ children }) => {
-    const isSignedIn = useUser();
-    if (!isSignedIn) {
-        return <Navigate to="/SignIn" />;
-    }
-    return children;
-};
+// const ProtectedRoute = ({ children }) => {
+//     const isSignedIn = useUser();
+//     if (!isSignedIn) {
+//         return <Navigate to="/SignIn" />;
+//     }
+//     return children;
+// };
 
 
 const App = () => {
@@ -21,11 +21,7 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/dashboard" element={
-                    <ProtectedRoute>
-                        <Dashboard />
-                    </ProtectedRoute>
-                } />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/signin" element={
 
