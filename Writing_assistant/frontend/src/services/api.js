@@ -9,9 +9,16 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
+    const tokenSource = localStorage.getItem('tokenSource');
     if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        if (tokenSource !== 'manual'){
+            config.headers.Authorization = `Bearer ${token}`;
+            config.headers['X-Token-Source'] = 'clerk';
+        } else {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
     }
+
     return config;
 }, (error) => {
     return Promise.reject(error);

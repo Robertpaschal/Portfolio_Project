@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { IoCloseCircleOutline } from 'react-icons/io5';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import { SignIn, useAuth } from '@clerk/clerk-react';
+import { SignIn, useAuth, useUser } from '@clerk/clerk-react';
 import { loginUser } from '../services/api';
 
 const SignInPage = ({ closing }) => {
@@ -11,12 +11,15 @@ const SignInPage = ({ closing }) => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { isLoaded, isSignedIn } = useAuth();
+  const { session } = useUser();
 
   useEffect(() => {
     if (isLoaded && isSignedIn) {
+      const token = session.idToken;
+      localStorage.setItem('token', token);
       navigate('/dashboard');
     }
-  }, [isLoaded, isSignedIn, navigate]);
+  }, [isLoaded, isSignedIn, session, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -35,6 +38,7 @@ const SignInPage = ({ closing }) => {
       const accessToken = await loginUser(formData);
       if (accessToken) {
         localStorage.setItem('token', accessToken);
+        localStorage.setItem('tokenSource', 'manual');
         navigate('/dashboard');
       } else {
         setError('Login failed. Please check your credentials.');
