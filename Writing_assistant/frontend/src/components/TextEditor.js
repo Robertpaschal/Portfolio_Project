@@ -56,9 +56,9 @@ const TextEditor = () => {
     setEditorContent(content);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async () => {};
     // setResponse(editorContent);
-    try {
+    /*try {
       const sanitizedContent = DOMPurify.sanitize(editorContent);
       const session = {
         user: { user: user.name, image: user.image },
@@ -73,6 +73,7 @@ const TextEditor = () => {
       // setReply("");
     }
   };
+  */
 
   if (loading) return <div>Loading...</div>;
 

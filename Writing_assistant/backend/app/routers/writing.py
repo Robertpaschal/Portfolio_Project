@@ -53,8 +53,9 @@ def list_documents(
 
 @router.post("/generate")
 def content_generation(
-    prompt_request: schemas.PromptRequest, db: Session = Depends(
-        database.get_db), user: models.User = Depends(get_current_user)):
+    prompt_request: schemas.PromptRequest,
+    db: Session = Depends(database.get_db),
+    user: models.User = Depends(get_current_user)):
     """This route uses the Gemini API to generate,
     summarize contents based on  users input.
     The session is stored in the users documents database"""

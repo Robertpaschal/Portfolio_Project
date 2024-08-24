@@ -14,7 +14,7 @@ const SignInPage = ({ closing }) => {
 
   useEffect(() => {
     if (isLoaded && isSignedIn) {
-      navigate('/');
+      navigate('/dashboard');
     }
   }, [isLoaded, isSignedIn, navigate]);
 
@@ -35,7 +35,7 @@ const SignInPage = ({ closing }) => {
       const accessToken = await loginUser(formData);
       if (accessToken) {
         localStorage.setItem('token', accessToken);
-        navigate('/');
+        navigate('/dashboard');
       } else {
         setError('Login failed. Please check your credentials.');
       }
