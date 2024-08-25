@@ -90,8 +90,7 @@ const TextEditor = () => {
         </div>
         <div className='h-40 p-2 rounded-md overflow-auto'>
           <h3 className='text-lg font-semibold'></h3>
-          <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }} 
-          className='whitespace-pre-wrap'
+          <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
           />
         </div>
       </div>

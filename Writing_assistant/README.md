@@ -20,12 +20,15 @@ The Intelligent Writing Assistant is a web application designed to help users wi
 
 ## Features
 
-- **Auto-completion and Suggestions**: Provides real-time suggestions to improve writing.
+- **Content Generation**: Uses Gemini API to generate content for users.
+- **Writing Space**: Users can manually write and bring their creative idas to life.
+- **Content Summarization**: Summarizes long documents into concise summaries.
 - **Grammar and Style Checking**: Enhances grammar, style, and readability of the content.
 - **Plagiarism Detection**: Ensures the originality of the content.
-- **Content Summarization**: Summarizes long documents into concise summaries.
+
 
 ## Project Structure
+This is the detailed structure of the files used in this directory in creating an Intelligent Writing Assistant app.
 
 ```plaintext
 intelligent-writing-assistant/
@@ -51,6 +54,13 @@ intelligent-writing-assistant/
 │   │       ├── __init__.py
 │   │       ├── security.py
 |   |       |-- gemini.py
+|   |       |-- redis_util.py
+|   |       |-- style_grammar.py
+|   |--- tests/
+|   |   |--- test_app.py
+|   |   |--- test_created_at.py
+|   |   |--- test_gemini.py
+|   |   |--- test_simple_gemini.py
 │   ├── .env.local
 │   ├── requirements.txt
 │   ├── Dockerfile
@@ -60,27 +70,74 @@ intelligent-writing-assistant/
 │   ├── public/
 │   │   ├── index.html
 │   ├── src/
+|   |   |-- assets/
+|   |   |     |-- lib.js
+|   |   |     |-- images/
+|   |   |           |-- image1.png
+|   |   |           |-- image4.png       
+|   |   |           |-- landingpage_icon.png
+|   |   |           |-- logo-black.png
+|   |   |           |-- logo-white.png
 │   │   ├── components/
+|   |   |   |-- DropDownItem.js
+|   |   |   |-- DropdownList.js
+|   |   |   |-- HistoryCard.js
+|   |   |   |-- SignOutButton.js
 │   │   │   ├── Navbar.js
 │   │   │   ├── Footer.js
 │   │   │   ├── TextEditor.js
 │   │   │   ├── SuggestionsList.js
+|   |   |   |-- Updates.js
+|   |   |   |-- body.js
+|   |   |   |-- custom_corousel.js
+|   |   |   |-- dashboard_mini_navbar2.js
+|   |   |   |-- dashboard_navbar.js
+|   |   |   |-- dropdownmenu.js
+|   |   |   |-- sidebar1.js
+|   |   |   |-- stars.js
+|   |   |-- hooks/
+|   |   |   |-- Auth.js
+|   |   |   |-- dashboardAuthStatus.js
+|   |   |   |-- dashboardWithAuth.js
+|   |   |   |-- usemodal.js
+|   |   |   |-- userAuth.js
 │   │   ├── pages/
 │   │   │   ├── Home.js
 │   │   │   ├── Dashboard.js
-│   │   │   ├── Editor.js
-│   │   │   ├── Login.js
+│   │   │   ├── SignOut.js
+│   │   │   ├── Signin.js
 │   │   │   ├── Signup.js
 │   │   ├── redux/
-│   │   │   ├── store.js
-│   │   │   ├── actions.js
-│   │   │   ├── reducers.js
+│   │   │   ├── Actions/
+|   |   |   |   |-- cardActiontypes.js
+|   |   |   |   |-- cardCreators.js
+|   |   |   |   |-- contentActionTypes.js
+|   |   |   |   |-- textEditorCreator.js
+|   |   |   |   |-- contentActionCreators.js
+|   |   |   |   |-- textEditorActiontypes.js
+│   │   │   ├── Store/
+|   |   |   |   |-- store.js
+│   │   │   ├── Reducers/
+|   |   |   |   |-- Authreducers.js
+|   |   |   |   |-- RootReducers.js
+|   |   |   |   |-- cardReducers.js
+|   |   |   |   |-- contentReducers.js
+|   |   |   |   |-- textEditorReducer.js
 │   │   ├── services/
 │   │   │   ├── api.js
+|   |   |   |-- textEditorapi.js
+|   |   |-- styles/
+|   |   |   |-- corousel.css  
 │   │   ├── App.js
 │   │   ├── index.js
+|   |   |-- index.css
 │   ├── .env
-│   ├── package.json
+|   |-- .gitignore
+|   |-- package-lock.json
+|   |-- package.json
+|   |-- postcss.config.js
+|   |-- tailwind.config.js
+|   |-- vite.config.js
 │   ├── Dockerfile
 │   ├── docker-compose.yml
 ├── .gitignore
