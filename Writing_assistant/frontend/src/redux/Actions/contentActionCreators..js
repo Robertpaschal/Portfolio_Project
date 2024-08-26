@@ -1,7 +1,7 @@
 import { ContentActionTypes } from './contentActionTypes';
 import { generateContent } from '../../services/api';
 
-// Fetches content from the API
+// Fetches content
 export const fetchContent = () => async (dispatch) => {
   dispatch({ type: ContentActionTypes.FETCH_CONTENT_REQUEST });
   try {
