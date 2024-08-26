@@ -3,42 +3,11 @@ import { IoCloseCircleOutline } from 'react-icons/io5';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { SignIn, useAuth } from '@clerk/clerk-react';
-import { loginUser } from '../services/api';
+// import { loginUser } from '../services/api';
 
 
 const SignInPage = ({ closing }) => {
-  const [fullName, setFullName] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
-  const { isLoaded, isSignedIn, session } = useAuth();
-
-  useEffect(() => {
-    if (isLoaded && isSignedIn && session) {
-      // Store Clerk token if user is signed in via Clerk
-      localStorage.setItem('token', session.accessToken);
-      navigate('/');
-    }
-  }, [isLoaded, isSignedIn, session, navigate]);
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append('username', fullName);
-      formData.append('password', password);
-
-      const accessToken = await loginUser(formData);
-      if (accessToken) {
-        localStorage.setItem('token', accessToken)
-        navigate('/');
-      } else {
-        setError('Login failed. Please check your credentials.');
-      }
-    } catch (err) {
-      setError('An error occurred. Please try again later.');
-    }
-  };
+ 
 
   return (
     <div className='w-full bg-white bg-opacity-90 flex justify-center items-center'>
@@ -61,18 +30,18 @@ const SignInPage = ({ closing }) => {
                 // Customize colors, fonts, etc. here
               },
             }}
-            onSignIn={handleSignIn} 
+            // onSignIn={handleSignIn} 
           />
 
           {/* Divider or Option to Choose Another Method */}
-          <div className='flex justify-center mt-2 px-4 items-center space-x-2'>
+          {/* <div className='flex justify-center mt-2 px-4 items-center space-x-2'>
             <div className='bg-slate-500 size-0.5 w-20 h-0.5'></div>
             <p>Or login with your username (which is your fullname)</p>
             <div className='bg-slate-500 size-0.5 w-20 h-0.5'></div>
-          </div>
+          </div> */}
 
           {/* Custom Backend Login Form */}
-          <form className='w-full mt-4' onSubmit={handleLogin}>
+          {/* <form className='w-full mt-4' onSubmit={handleLogin}>
             {error && <p className='text-red-500'>{error}</p>}
             <div className='gap-2 flex flex-col justify-center items-center'>
               <input
@@ -102,7 +71,7 @@ const SignInPage = ({ closing }) => {
                 Log in
               </button>
             </div>
-          </form>
+          </form> */}
         </div>
       </div>
     </div>
