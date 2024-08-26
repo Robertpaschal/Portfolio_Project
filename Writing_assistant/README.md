@@ -375,7 +375,6 @@ This Web Application was built by a team of four developers:<br/>
   - *email*: garretakpale@gmail.com 
   - *role*: Backend dev
 
-
 - **Okoli Chisom Daniel**
   - *email*: chisomd90@gmail.com
   - *role*: Backend dev 
