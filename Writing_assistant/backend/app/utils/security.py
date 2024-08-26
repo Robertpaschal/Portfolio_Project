@@ -178,24 +178,26 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
         plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
 
 
-def get_verified_token(token: str = Depends(oauth2_scheme)):
+def get_verified_token(
+        token: str = Depends(oauth2_scheme),
+        x_token_source = Header(None)):
     """
     Verify if the token is a Clerk token or a standard backend token.
     """
     try:
+        if x_token_source == "clerk":
         # Try to verify as a Clerk token
-        clerk_payload = verify_clerk_token(token)
-        if clerk_payload:
-            return token, "clerk"
-        
+            clerk_payload = verify_clerk_token(token)
+            if clerk_payload:
+                return token, "clerk"
+        else:
         # If not Clerk, verify as a backend token
-        verify_token(token, HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Could not validate credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        ))
+            verify_token(token, HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Could not validate credentials",
+                headers={"WWW-Authenticate": "Bearer"},
+            ))
         return token, "backend"
-
     except HTTPException:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
