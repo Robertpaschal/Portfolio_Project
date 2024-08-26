@@ -3,9 +3,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 // import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
-import { useUser } from '@clerk/clerk-react';
+// import { useUser } from '@clerk/clerk-react';
 import SignUpPage from './pages/Signup';
 import SignInPage from './pages/SignIn';
+import AboutMe from './pages/AboutMe';
+import Services from './pages/Services';
+import ContactUs from './pages/ContactUs';
 
 // const ProtectedRoute = ({ children }) => {
 //     const isSignedIn = useUser();
@@ -28,6 +31,9 @@ const App = () => {
                     <SignInPage />
 
                 } />
+                <Route path="/aboutme" element={<AboutMe />} />
+                <Route path="/services" element={< Services />} />
+                <Route path="/contactus" element={< ContactUs />} />
             </Routes>
         </Router>
     );
