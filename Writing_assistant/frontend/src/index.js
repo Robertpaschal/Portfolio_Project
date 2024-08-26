@@ -9,9 +9,7 @@ import store from './redux/Store/store'
 import { Provider } from 'react-redux';
 
 
-const PUBLISHABLE_KEY = "pk_test_ZXZvbHZlZC1hbGJhY29yZS00LmNsZXJrLmFjY291bnRzLmRldiQ";
-
-console.log("Clerk Publishable Key:", PUBLISHABLE_KEY);
+const PUBLISHABLE_KEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
 if (!PUBLISHABLE_KEY) {
     throw new Error('Missing publishable key')
